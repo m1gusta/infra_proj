@@ -1,0 +1,44 @@
+services:
+
+    app:
+        image: {{ app_image }}
+
+        expose:
+            - "{{ app_port }}"
+        
+        restart: unless-stopped
+
+        networks:
+            - app-network
+
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.app.rule=PathPrefix('/')"
+            - "traefik.http.routers.app.entrypoints=web"
+            - "traefik.http.services.app.loadbalancer.server.port={{ app_port }}"
+
+    traefik:
+        image: traefik:v3.5
+
+        command:
+            - "--api.dashboard=true"
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--providers.docker.exposedbydefault=false"
+            - "--entrypoints.web.address=:80"
+
+        ports:
+            - "8000:80"
+            - "8080:8080"
+
+        voluems:
+            - /var/run/docker.sock:/var/run/docker/sock:ro
+        
+        networks:
+            - app-network
+
+        restart: unless-stopped
+
+networks:
+    app-network:
+        driver: bridge

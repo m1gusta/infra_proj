@@ -1,0 +1,5 @@
+---
+app_name: mini-infra-app
+app_image: mini-infra-app:local
+app_port: 8000
+app_replicas: 3

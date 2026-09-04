@@ -1,0 +1,22 @@
+project:
+  name: mini_infra
+  environment: development
+
+application:
+  name: mini-infra-app
+  port: 8000
+  replicas: 3
+
+deployment:
+  mode: docker
+
+
+
+
+
+monitoring:
+  enabled: false
+
+load_testing:
+  enabled: false
+
