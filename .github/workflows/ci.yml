@@ -3,10 +3,10 @@ name: CI/CD
 on:
   push:
     branches:
-      - github
+      - master
   pull_request:
     branches:
-      - github
+      - master
 
 env:
   REGISTRY: gchr.io
